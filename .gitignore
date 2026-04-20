@@ -1,0 +1,73 @@
+# Environnement virtuel
+.venv/
+venv/
+ENV/
+env/
+
+# Fichiers Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Outils de test et couverture
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Fichiers générés par le projet
+tickets_historiques.csv
+docs/               # les docs sont générées, mais si tu as des docs perso, à ajuster
+vector_db_faiss/    # base vectorielle générée
+vector_db/          # si ancienne version ChromaDB
+
+# Fichiers de logs
+*.log
+logs/
+
+# Fichiers sensibles
+.env
+.env.local
+.env.*.local
+
+# Fichiers de données sensibles (si tu en ajoutes plus tard)
+*.pkl
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS spécifique
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Streamlit
+.streamlit/secrets.toml
