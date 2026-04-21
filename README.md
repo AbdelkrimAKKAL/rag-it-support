@@ -19,24 +19,6 @@ https://rag.82-165-15-109.nip.io/
 
 👉 **Ces gains opérationnels se traduisent directement par des économies financières pour l'entreprise (coûts évités, productivité accrue, réduction du turnover).**
 
-## 📁 Structure du projet
-├── backend/
-│ ├── main.py # Serveur FastAPI, endpoints RAG
-│ ├── static/ # Frontend (HTML, CSS, JS)
-│ ├── chroma_db/ # Base vectorielle (créée par ingestion)
-│ └── .env # Variables d'environnement (clé API Mistral)
-├── scripts/
-│ └── ingest_data.py # Script d'ingestion des documents
-├── data/ # Documents sources (.md, .txt)
-│ ├── Active_Directory_Guide.md
-│ ├── Imprimantes_Guide.md
-│ ├── Reseau_Performance.md
-│ ├── VPN_Guide.md
-│ └── Windows_Stability.md
-├── requirements.txt # Dépendances Python
-├── docker-compose.yml # Orchestration Docker (optionnel)
-└── Dockerfile # Image Docker
-
 
 ## 🚀 Démarrage rapide
 
