@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Support | RAG Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app-container">
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">
+                <i data-lucide="headset" size="20"></i>
+                <span>IT SUPPORT</span>
+            </div>
+            <button id="close-sidebar" class="close-mobile-btn">
+                <i data-lucide="x" size="20"></i>
+            </button>
+        </div>
+        <div id="topics-list" class="topics-list">
+            <button class="topic-btn active" data-topic="general">
+                <i data-lucide="circle-help" size="16"></i>
+                <span>Questions Générales</span>
+            </button>
+            <button class="topic-btn" data-topic="network">
+                <i data-lucide="network" size="16"></i>
+                <span>Réseau & VPN</span>
+            </button>
+            <button class="topic-btn" data-topic="active-directory">
+                <i data-lucide="users" size="16"></i>
+                <span>Active Directory</span>
+            </button>
+            <button class="topic-btn" data-topic="printers">
+                <i data-lucide="printer" size="16"></i>
+                <span>Imprimantes</span>
+            </button>
+            <button class="topic-btn" data-topic="windows">
+                <i data-lucide="monitor" size="16"></i>
+                <span>Windows Stabilité</span>
+            </button>
+        </div>
+        <div class="sidebar-footer">
+            <p>© 2026 IT Support</p>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <button id="toggle-sidebar" class="menu-btn">
+                <i data-lucide="menu" size="24"></i>
+            </button>
+           
+            <div class="header-info">
+                <h1>IT Support Assistant</h1>
+                <p class="subtitle">Votre assistant pour tous vos problèmes IT</p>
+            </div>
+            <div class="header-actions">
+                <button id="new-chat-btn" class="new-chat-btn">
+                    <i data-lucide="plus" size="20"></i>
+                    <span>Nouveau Chat</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="chat-section">
+            <div class="chat-window">
+                <div id="chat-messages">
+                    <div class="message bot">
+                        <div class="avatar bot-avatar">
+                            <i data-lucide="bot" size="24"></i>
+                        </div>
+                        <div class="bubble">
+                            Bonjour! Je suis votre assistant IT Support. Je peux vous aider avec des questions sur le réseau, Active Directory, les imprimantes, et bien plus. Comment puis-je vous aider aujourd'hui?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <form id="chat-form">
+                        <input type="text" id="user-input" placeholder="Posez votre question IT..." autocomplete="off">
+                        <button type="submit" id="send-btn">
+                            <i data-lucide="send" size="20"></i>
+                        </button>
+                    </form>
+                    <p class="input-hint">Appuyez sur Entrée ou cliquez sur l'icône d'envoi</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="#" title="Politique de confidentialité"><i data-lucide="shield" size="16"></i> Confidentialité</a>
+                <a href="#" title="Conditions d'utilisation"><i data-lucide="file-text" size="16"></i> Conditions</a>
+                <a href="#" title="Nous contacter"><i data-lucide="mail" size="16"></i> Contact</a>
+            </div>
+        </footer>
+    </main>
+
+    <div id="overlay" class="overlay"></div>
+</div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
