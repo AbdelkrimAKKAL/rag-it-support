@@ -7,6 +7,9 @@ Un assistant IT support moderne basé sur RAG (Retrieval-Augmented Generation) u
 [![Mistral AI](https://img.shields.io/badge/LLM-Mistral%20AI-orange.svg)](https://mistral.ai/)
 [![Chroma](https://img.shields.io/badge/Vector%20DB-Chroma-green.svg)](https://www.trychroma.com/)
 
+# LINK
+https://rag.82-165-15-109.nip.io/
+
 ## 🎯 Objectif business
 
 - Réduire le temps moyen de résolution (MTTR) des incidents IT de 40 % en automatisant les réponses aux questions fréquentes.
