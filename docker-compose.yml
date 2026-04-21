@@ -1,14 +1,12 @@
-version: '3.8'
-
 services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "8005:8005"               # Correction : le conteneur écoute sur 8005
     environment:
       - MISTRAL_API_KEY=${MISTRAL_API_KEY}
       - PYTHONUNBUFFERED=1
     volumes:
-      - ./backend/chroma_db:/app/backend/chroma_db   # Base vectorielle
-      - ./data:/app/data                             # Documents sources
-    
+      - ./backend/chroma_db:/app/backend/chroma_db
+      - ./data:/app/data
+    restart: unless-stopped
