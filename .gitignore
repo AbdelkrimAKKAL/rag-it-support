@@ -71,3 +71,26 @@ desktop.ini
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+
+# Base vectorielle Chroma (peut être volumineuse)
+backend/chroma_db/
+
+# Fichiers de configuration sensibles
+.env
+backend/.env
+
+# Configuration Nginx (spécifique au serveur)
+nginx.conf
+conf.d/
+
+# Logs
+*.log
+
+# Fichiers de certificats SSL
+/etc/letsencrypt/
