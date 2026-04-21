@@ -23,28 +23,25 @@
                 <i data-lucide="x" size="20"></i>
             </button>
         </div>
-        <div id="topics-list" class="topics-list">
-            <button class="topic-btn active" data-topic="general">
-                <i data-lucide="circle-help" size="16"></i>
-                <span>Questions Générales</span>
-            </button>
-            <button class="topic-btn" data-topic="network">
-                <i data-lucide="network" size="16"></i>
-                <span>Réseau & VPN</span>
-            </button>
-            <button class="topic-btn" data-topic="active-directory">
-                <i data-lucide="users" size="16"></i>
-                <span>Active Directory</span>
-            </button>
-            <button class="topic-btn" data-topic="printers">
-                <i data-lucide="printer" size="16"></i>
-                <span>Imprimantes</span>
-            </button>
-            <button class="topic-btn" data-topic="windows">
-                <i data-lucide="monitor" size="16"></i>
-                <span>Windows Stabilité</span>
-            </button>
+
+        <!-- Suggestions rapides (seule section utile) -->
+        <div class="suggestions-section">
+            <div class="suggestions-title">
+                <i data-lucide="lightbulb" size="16"></i>
+                <span>Suggestions rapides</span>
+            </div>
+            <div class="suggestions-list">
+                <button class="suggestion-chip" data-question="Comment résoudre un problème de VPN ?"> Problème VPN</button>
+                <button class="suggestion-chip" data-question="Mon mot de passe Active Directory ne fonctionne plus"> AD mot de passe</button>
+                <button class="suggestion-chip" data-question="Impossible d'ajouter une imprimante réseau"> Ajout imprimante</button>
+                <button class="suggestion-chip" data-question="Ma connexion internet est très lente"> Réseau lent</button>
+                <button class="suggestion-chip" data-question="Écran bleu sur Windows 11"> Écran bleu</button>
+                <button class="suggestion-chip" data-question="Comment me connecter au VPN Cisco AnyConnect ?"> Connexion VPN</button>
+            </div>
         </div>
+
+        <!-- La section topics-list a été supprimée -->
+        
         <div class="sidebar-footer">
             <p>© 2026 IT Support</p>
         </div>

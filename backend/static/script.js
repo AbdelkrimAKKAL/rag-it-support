@@ -10,7 +10,10 @@ const overlay = document.getElementById("overlay");
 const toggleSidebarBtn = document.getElementById("toggle-sidebar");
 const closeSidebarBtn = document.getElementById("close-sidebar");
 const newChatBtn = document.getElementById("new-chat-btn");
-const topicBtns = document.querySelectorAll(".topic-btn");
+const suggestionChips = document.querySelectorAll(".suggestion-chip");
+
+// Variables pour l'indicateur de frappe
+let typingIndicatorDiv = null;
 
 // Toggle sidebar on mobile
 toggleSidebarBtn.addEventListener("click", () => {
@@ -28,16 +31,6 @@ overlay.addEventListener("click", () => {
     overlay.classList.remove("active");
 });
 
-// Handle topic selection
-topicBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        topicBtns.forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-    });
-});
-
 // New chat
 newChatBtn.addEventListener("click", () => {
     chatMessages.innerHTML = `
@@ -53,88 +46,117 @@ newChatBtn.addEventListener("click", () => {
     lucide.createIcons();
 });
 
-// Send message
-chatForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const message = userInput.value.trim();
+// Affiche l'indicateur "bot écrit..."
+function showTypingIndicator() {
+    if (!typingIndicatorDiv) {
+        typingIndicatorDiv = document.createElement("div");
+        typingIndicatorDiv.className = "message bot typing";
+        typingIndicatorDiv.innerHTML = `
+            <div class="avatar bot-avatar">
+                <i data-lucide="bot" size="24"></i>
+            </div>
+            <div class="bubble typing-bubble">
+                <span></span><span></span><span></span>
+            </div>
+        `;
+    }
+    if (!typingIndicatorDiv.parentNode) {
+        chatMessages.appendChild(typingIndicatorDiv);
+        lucide.createIcons();
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+}
+
+function hideTypingIndicator() {
+    if (typingIndicatorDiv && typingIndicatorDiv.parentNode) {
+        typingIndicatorDiv.remove();
+    }
+}
+
+async function sendMessage(message) {
     if (!message) return;
-    
-    // Add user message to chat
+
     addMessage(message, "user");
     userInput.value = "";
-    
-    // Show loading state
     sendBtn.disabled = true;
-    
+    showTypingIndicator();
+
     try {
         const response = await fetch("/api/chat", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message }),
         });
-        
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
-        
+
+        if (!response.ok) throw new Error(`API error: ${response.statusText}`);
+
         const data = await response.json();
-        
-        // Add bot response to chat
-        addMessage(data.response, "bot", data.sources);
-        
+
+        hideTypingIndicator();
+        addMessage(data.response, "bot");
     } catch (error) {
         console.error("Error:", error);
-        addMessage(
-            "Désolé, une erreur s'est produite. Veuillez réessayer.",
-            "bot"
-        );
+        hideTypingIndicator();
+        addMessage("Désolé, une erreur s'est produite. Veuillez réessayer.", "bot");
     } finally {
         sendBtn.disabled = false;
         userInput.focus();
     }
+}
+
+chatForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const message = userInput.value.trim();
+    await sendMessage(message);
 });
 
-function addMessage(content, role, sources = []) {
+suggestionChips.forEach((chip) => {
+    chip.addEventListener("click", async () => {
+        const question = chip.getAttribute("data-question");
+        if (question) {
+            await sendMessage(question);
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove("active");
+                overlay.classList.remove("active");
+            }
+        }
+    });
+});
+
+function addMessage(content, role) {
     const messageDiv = document.createElement("div");
     messageDiv.className = `message ${role}`;
-    
+
     const avatarDiv = document.createElement("div");
     avatarDiv.className = `avatar ${role === "bot" ? "bot-avatar" : ""}`;
-    
-    if (role === "bot") {
-        avatarDiv.innerHTML = '<i data-lucide="bot" size="24"></i>';
-    } else {
-        avatarDiv.innerHTML = '<i data-lucide="user" size="24"></i>';
-    }
-    
+    avatarDiv.innerHTML = role === "bot" ? '<i data-lucide="bot" size="24"></i>' : '<i data-lucide="user" size="24"></i>';
+
     const bubbleDiv = document.createElement("div");
     bubbleDiv.className = "bubble";
-    bubbleDiv.textContent = content;
-    
+
+    if (role === "bot") {
+        let formatted = content
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\n/g, '<br>');
+        formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        bubbleDiv.innerHTML = formatted;
+    } else {
+        bubbleDiv.textContent = content;
+    }
+
     if (role === "bot") {
         messageDiv.appendChild(avatarDiv);
         messageDiv.appendChild(bubbleDiv);
-        
-        if (sources.length > 0) {
-            const sourcesDiv = document.createElement("div");
-            sourcesDiv.className = "message-sources";
-            sourcesDiv.textContent = `Sources: ${sources.slice(0, 2).join(", ")}`;
-            bubbleDiv.appendChild(sourcesDiv);
-        }
     } else {
         messageDiv.appendChild(bubbleDiv);
         messageDiv.appendChild(avatarDiv);
     }
-    
+
     chatMessages.appendChild(messageDiv);
     lucide.createIcons();
-    
-    // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Auto-focus input on page load
 userInput.focus();

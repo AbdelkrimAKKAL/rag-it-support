@@ -62,16 +62,31 @@ try:
     
     # Define the RAG prompt
     rag_prompt = ChatPromptTemplate.from_template("""
-Tu es un assistant IT support français. Réponds aux questions des utilisateurs en utilisant uniquement le contexte fourni.
-Si tu ne trouves pas d'information pertinente, dis poliment que tu ne peux pas répondre.
+    Tu es un assistant IT support français. Réponds de manière très propre, sans aucun caractère de formatage spécial.
 
-Contexte:
-{context}
+    Règles impératives :
+    - N'utilise JAMAIS les caractères suivants : # * - > ` _ [ ] ( )
+    - N'utilise JAMAIS de hashtags, ni d'astérisques, ni de tirets.
+    - Pour organiser ta réponse, utilise uniquement :
+    - Des titres en MAJUSCULES, sur une ligne seule
+    - Des numéros (1., 2., 3.) pour les étapes
+    - Des sauts de ligne entre les sections
+    - Exemple de format attendu :
 
-Question: {question}
+    PROBLÈME DE CONNEXION
+    1. Vérifiez votre connexion internet avec la commande ping 8.8.8.8
+    2. Redémarrez le service Cisco AnyConnect
+    3. Contactez le support si le problème persiste
 
-Réponds de manière claire et concise en français.
-""")
+    SOLUTION ALTERNATIVE
+    Utilisez le VPN web en vous connectant sur portal.company.com
+
+    Contexte : {context}
+
+    Question : {question}
+
+    Réponse (format strict, sans aucun symbole bizarre) :
+    """)
     
 except Exception as e:
     print(f"⚠️  RAG components not fully initialized: {e}")
